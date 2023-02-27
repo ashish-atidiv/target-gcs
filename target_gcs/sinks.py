@@ -44,12 +44,17 @@ class GCSSink(RecordSink):
                     "//", "/"
                 )
             ).lstrip("/")
-            date = datetime.today().strftime(self.config.get("date_format", "%Y-%m-%d"))
+            date = datetime.today()
+            full_date = date.strftime(self.config.get("date_format", "%Y-%m-%d"))
+            year = str(date.year)
+            yearmonth = date.strftime("%Y-%m")
             self._key_name = prefixed_key_name.format_map(
                 defaultdict(
                     str,
                     stream=self.stream_name,
-                    date=date,
+                    date=full_date,
+                    year=year,
+                    yearmonth= yearmonth,
                     timestamp=extraction_timestamp,
                 )
             )
